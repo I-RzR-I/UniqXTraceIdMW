@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/I-RzR-I/UniqXTraceIdMW</RepositoryUrl>
     <PackageProjectUrl>https://github.com/I-RzR-I/UniqXTraceIdMW</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageDescription></PackageDescription>
+    <PackageDescription>Generate and overwrite default/predefined trace identifiers in the HTTP context. Value of 'HttpContext.TraceIdentifier' is changed and also add new header variable in 'HttpContext.Response.Headers' named 'X-Trace-Id' to trace requests in trace logs.</PackageDescription>
     <PackageTitle>RzR.MiddleWares.UniqXTraceIdMW (UniqXTraceIdMW)</PackageTitle>
     <Title>RzR.MiddleWares.UniqXTraceIdMW (UniqXTraceIdMW)</Title>
     <LangVersion>8.0</LangVersion>
