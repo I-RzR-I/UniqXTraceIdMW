@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworkss>netstandard2.0</TargetFrameworkss>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Authors>RzR</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>PackageIcon.png</PackageIcon>
+    <NoWarn>$(NoWarn);CS8032</NoWarn>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageTags>HTTP;Response;X-Trace;Trace;Header;Variable;Middleware;Tracing;Trace;Logs</PackageTags>
+    <RepositoryUrl>https://github.com/I-RzR-I/UniqXTraceIdMW</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/I-RzR-I/UniqXTraceIdMW</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageDescription></PackageDescription>
+    <PackageTitle>RzR.MiddleWares.UniqXTraceIdMW (UniqXTraceIdMW)</PackageTitle>
+    <Title>RzR.MiddleWares.UniqXTraceIdMW (UniqXTraceIdMW)</Title>
+    <LangVersion>8.0</LangVersion>
+    <PackageIconUrl />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\shared\GeneralAssemblyInfo.cs" Link="Properties\GeneralAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\assets\PackageIcon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_StartDate="2022/8/5" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="PowerShell -NoProfile -ExecutionPolicy unrestricted -file $(SolutionDir)../build/pack.ps1 $(ConfigurationName)" />
+  </Target>
+</Project>
