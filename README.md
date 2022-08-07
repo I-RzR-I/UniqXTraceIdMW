@@ -7,6 +7,10 @@ On using, in HTTP context value of `HttpContext.TraceIdentifier` is changed and 
 
 No additional components or packs are required for use. So, it only needs to be added/installed in the project and can be used instantly.
 
+**In case you wish to use it in your project, u can install the package from <a href="https://www.nuget.org/packages/UniqXTraceIdMW" target="_blank">nuget.org</a>** or specify what version you want:
+
+> `Install-Package UniqXTraceIdMW -Version x.x.x.x`
+
 ## Content
 1. [USING](docs/usage.md)
 1. [CHANGELOG](docs/CHANGELOG.md)
