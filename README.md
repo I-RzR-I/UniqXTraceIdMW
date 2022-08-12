@@ -9,7 +9,10 @@ No additional components or packs are required for use. So, it only needs to be 
 
 **In case you wish to use it in your project, u can install the package from <a href="https://www.nuget.org/packages/UniqXTraceIdMW" target="_blank">nuget.org</a>** or specify what version you want:
 
+
 > `Install-Package UniqXTraceIdMW -Version x.x.x.x`
+
+[![NuGet Version](https://img.shields.io/nuget/v/UniqXTraceIdMW.svg?style=flat)](https://www.nuget.org/packages/UniqXTraceIdMW/)
 
 ## Content
 1. [USING](docs/usage.md)
