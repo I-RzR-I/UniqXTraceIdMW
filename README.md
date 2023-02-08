@@ -1,5 +1,8 @@
 > **Note** This repository is developed in .netstandard2.0
 
+[![NuGet Version](https://img.shields.io/nuget/v/UniqXTraceIdMW.svg?style=flat&logo=nuget)](https://www.nuget.org/packages/UniqXTraceIdMW/)
+[![Nuget Downloads](https://img.shields.io/nuget/dt/UniqXTraceIdMW.svg?style=flat&logo=nuget)](https://www.nuget.org/packages/UniqXTraceIdMW)
+
 One important thing about this repository is that you can customize the default trace identified. Using in project uniq trace id (customized), allow you to trace and identify requests in trace logs.
 
 Once you use this repository, you have the possibility to overwrite existing HTTP context trace id with your own rules.
@@ -11,8 +14,6 @@ No additional components or packs are required for use. So, it only needs to be 
 
 
 > `Install-Package UniqXTraceIdMW -Version x.x.x.x`
-
-[![NuGet Version](https://img.shields.io/nuget/v/UniqXTraceIdMW.svg?style=flat)](https://www.nuget.org/packages/UniqXTraceIdMW/)
 
 ## Content
 1. [USING](docs/usage.md)
