@@ -32,10 +32,11 @@ namespace UniqXTraceIdMW
         ///     Use uniq trace id middleware
         /// </summary>
         /// <param name="app">Application builder</param>
+        /// <param name="actions">Actions to be executed</param>
         /// <remarks></remarks>
-        public static IApplicationBuilder UseUniqTraceIdMiddleware(this IApplicationBuilder app)
+        public static IApplicationBuilder UseUniqTraceIdMiddleware(this IApplicationBuilder app, params Action[] actions)
         {
-            return app.UseMiddleware<TraceMiddleware>(new TraceOptions { TraceType = TraceType.Guid });
+            return app.UseMiddleware<TraceMiddleware>(new TraceOptions { TraceType = TraceType.Guid }, actions);
         }
 
         /// <summary>
@@ -43,11 +44,12 @@ namespace UniqXTraceIdMW
         /// </summary>
         /// <param name="app">Application builder</param>
         /// <param name="configureOptions">Configuration options</param>
+        /// <param name="actions">Actions to be executed</param>
         /// <remarks></remarks>
         public static IApplicationBuilder UseUniqTraceIdMiddleware(this IApplicationBuilder app,
-            TraceOptions configureOptions)
+            TraceOptions configureOptions, params Action[] actions)
         {
-            return app.UseMiddleware<TraceMiddleware>(configureOptions);
+            return app.UseMiddleware<TraceMiddleware>(configureOptions, actions);
         }
 
         /// <summary>
@@ -55,14 +57,15 @@ namespace UniqXTraceIdMW
         /// </summary>
         /// <param name="app">Application builder</param>
         /// <param name="configureOptions">Configuration options</param>
+        /// <param name="actions">Actions to be executed</param>
         /// <remarks></remarks>
         public static IApplicationBuilder UseUniqTraceIdMiddleware(this IApplicationBuilder app,
-            Action<TraceOptions> configureOptions)
+            Action<TraceOptions> configureOptions, params Action[] actions)
         {
             var options = new TraceOptions();
             configureOptions(options);
 
-            return app.UseMiddleware<TraceMiddleware>(options);
+            return app.UseMiddleware<TraceMiddleware>(options, actions);
         }
     }
 }

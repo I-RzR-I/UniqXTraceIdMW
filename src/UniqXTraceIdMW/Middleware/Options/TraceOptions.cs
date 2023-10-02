@@ -26,7 +26,7 @@ namespace UniqXTraceIdMW.Middleware.Options
 {
     public class TraceOptions
     {
-        private readonly string[] _acceptedFormat = {"D", "d", "N", "n", "P", "p", "B", "b", "X", "x"};
+        private readonly string[] _acceptedFormat = { "D", "d", "N", "n", "P", "p", "B", "b", "X", "x" };
         private string _guidFormat;
         private string _separator = "_";
 
@@ -67,5 +67,10 @@ namespace UniqXTraceIdMW.Middleware.Options
             get => _separator;
             set => _separator = string.IsNullOrEmpty(value) ? _separator : value;
         }
+
+        /// <summary>
+        ///     Log current request with trace id
+        /// </summary>
+        public bool LogRequestWithTraceId { get; set; }
     }
 }

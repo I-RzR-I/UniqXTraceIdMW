@@ -20,7 +20,9 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using UniqXTraceIdMW.Enums;
+using UniqXTraceIdMW.Extensions;
 using UniqXTraceIdMW.Middleware.Options;
 
 #endregion
@@ -44,15 +46,30 @@ namespace UniqXTraceIdMW.Middleware
         private readonly TraceOptions _options;
 
         /// <summary>
+        ///     Action to be executed
+        /// </summary>
+        private readonly Action[] _actions;
+
+        /// <summary>
+        ///     Middleware logger
+        /// </summary>
+        private readonly ILogger<TraceMiddleware> _logger;
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="UniqXTraceIdMW.Middleware.TraceMiddleware" /> class.
         /// </summary>
-        /// <param name="next">Request delegate</param>
-        /// <param name="options">Trace options</param>
+        /// <param name="next">Request delegate.</param>
+        /// <param name="options">Trace options.</param>
+        /// <param name="logger">Middleware logger.</param>
+        /// <param name="actions">Action to be executed.</param>
         /// <remarks></remarks>
-        public TraceMiddleware(RequestDelegate next, TraceOptions options)
+        public TraceMiddleware(RequestDelegate next, TraceOptions options, ILogger<TraceMiddleware> logger, params Action[] actions)
         {
             _next = next ?? throw new ArgumentNullException(nameof(next));
             _options = options ?? throw new ArgumentNullException(nameof(options));
+
+            _logger = logger;
+            _actions = actions;
         }
 
         /// <summary>
@@ -65,8 +82,25 @@ namespace UniqXTraceIdMW.Middleware
         {
             context.TraceIdentifier = GenerateTraceId(context.TraceIdentifier);
 
-            var id = context.TraceIdentifier;
-            context.Response.Headers["X-Trace-Id"] = id;
+            var traceIdentifier = context.TraceIdentifier;
+            context.Response.Headers["X-Trace-Id"] = traceIdentifier;
+
+            if (_options.LogRequestWithTraceId)
+            {
+                var currentPath = context.Request.Path;
+                var queryString = context.Request.QueryString;
+                var queryParams = context.Request.Query;
+                var requestBody = await context.Request.GetRawBodyAsync();
+
+                _logger.LogInformation("Executed current request with traceIdentifier = '{0}', path = '{1}', only params = '{2}' and body = '{3}'", 
+                    traceIdentifier, $"{currentPath}{queryString}", queryParams, requestBody);
+            }
+
+            if (_actions != null)
+            {
+                foreach (var action in _actions)
+                    action.Invoke();
+            }
 
             await _next(context);
         }

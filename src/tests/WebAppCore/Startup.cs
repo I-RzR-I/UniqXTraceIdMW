@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using UniqXTraceIdMW;
 using UniqXTraceIdMW.Enums;
 
@@ -31,10 +32,20 @@ namespace WebAppCore
 {
     public class Startup
     {
+        private ILogger<Startup> _logger;
+
+        public Startup()
+        {
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var serviceProvider = services.BuildServiceProvider();
+            var logger = serviceProvider.GetService<ILogger<Startup>>();
+            _logger = logger;
+            services.AddSingleton(typeof(ILogger), logger);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,8 +68,8 @@ namespace WebAppCore
                 o.TraceType = TraceType.GuidWithDateTime;
                 o.Prefix = "pref";
                 o.Separator = "-";
-            });
-
+                o.LogRequestWithTraceId = true;
+            }, () => _logger.LogInformation("Executed current request"));
 
             app.UseEndpoints(endpoints =>
             {
