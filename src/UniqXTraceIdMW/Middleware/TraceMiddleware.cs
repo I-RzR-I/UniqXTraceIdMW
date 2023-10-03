@@ -90,7 +90,7 @@ namespace UniqXTraceIdMW.Middleware
                 var currentPath = context.Request.Path;
                 var queryString = context.Request.QueryString;
                 var queryParams = context.Request.Query;
-                var requestBody = await context.Request.GetRawBodyAsync();
+                var requestBody = await context.ReadRequestBody();
 
                 _logger.LogInformation("Executed current request with traceIdentifier = '{0}', path = '{1}', only params = '{2}' and body = '{3}'", 
                     traceIdentifier, $"{currentPath}{queryString}", queryParams, requestBody);

@@ -50,5 +50,28 @@ namespace UniqXTraceIdMW.Extensions
                 return string.Empty;
             }
         }
+
+
+        /// <summary>
+        ///     Read body from context as string
+        /// </summary>
+        /// <param name="context">Http Context</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        internal static async Task<string> ReadRequestBody(this HttpContext context)
+        {
+            var buffer = new MemoryStream();
+            await context.Request.Body.CopyToAsync(buffer);
+            context.Request.Body = buffer;
+            buffer.Position = 0;
+
+            var encoding = Encoding.UTF8;
+
+            var requestContent = await new StreamReader(buffer, encoding).ReadToEndAsync();
+            context.Request.Body.Position = 0;
+
+            return requestContent;
+        }
+
     }
 }
