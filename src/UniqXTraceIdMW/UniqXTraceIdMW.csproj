@@ -19,10 +19,6 @@
     <Title>RzR.MiddleWares.UniqXTraceIdMW (UniqXTraceIdMW)</Title>
     <LangVersion>8.0</LangVersion>
     <PackageIconUrl />
-
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>true</DelaySign>
-    <AssemblyOriginatorKeyFile>UniqXTraceIdMWSign.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
