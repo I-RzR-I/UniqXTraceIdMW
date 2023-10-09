@@ -24,6 +24,9 @@ using UniqXTraceIdMW.Enums;
 
 namespace UniqXTraceIdMW.Middleware.Options
 {
+    /// <summary>
+    ///     Trace options
+    /// </summary>
     public class TraceOptions
     {
         private readonly string[] _acceptedFormat = { "D", "d", "N", "n", "P", "p", "B", "b", "X", "x" };

@@ -26,6 +26,9 @@ using UniqXTraceIdMW.Middleware.Options;
 
 namespace UniqXTraceIdMW
 {
+    /// <summary>
+    ///     Service collection extensions
+    /// </summary>
     public static class DependencyInjection
     {
         /// <summary>

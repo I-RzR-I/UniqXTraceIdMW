@@ -16,6 +16,9 @@
 
 namespace UniqXTraceIdMW.Enums
 {
+    /// <summary>
+    ///     HTTP trance type
+    /// </summary>
     public enum TraceType
     {
         /// <summary>
