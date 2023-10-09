@@ -29,7 +29,7 @@ using System.Resources;
 
 [assembly: AssemblyCompany("RzR ®")]
 [assembly: AssemblyProduct("Uniq HTTP trace identifier")]
-[assembly: AssemblyCopyright("Copyright © 2022 RzR All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2022-2023 RzR All rights reserved.")]
 [assembly: AssemblyTrademark("® RzR™")]
 [assembly: AssemblyDescription("Generate and overwrite default/predefined trace identifiers in the HTTP context. Value of 'HttpContext.TraceIdentifier' is changed and also add new header variable in 'HttpContext.Response.Headers' named 'X-Trace-Id' to trace requests in trace logs.")]
 
@@ -41,6 +41,6 @@ using System.Resources;
 
 [assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.MainAssembly)]
 
-[assembly: AssemblyVersion("1.0.1.1500")]
-[assembly: AssemblyFileVersion("1.0.1.1500")]
-[assembly: AssemblyInformationalVersion("1.0.1.*")]
+[assembly: AssemblyVersion("1.0.2.1512")]
+[assembly: AssemblyFileVersion("1.0.2.1512")]
+[assembly: AssemblyInformationalVersion("1.0.2.*")]

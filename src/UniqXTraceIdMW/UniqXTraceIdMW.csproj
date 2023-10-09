@@ -19,6 +19,18 @@
     <Title>RzR.MiddleWares.UniqXTraceIdMW (UniqXTraceIdMW)</Title>
     <LangVersion>8.0</LangVersion>
     <PackageIconUrl />
+
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>true</DelaySign>
+    <AssemblyOriginatorKeyFile>UniqXTraceIdMWSign.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

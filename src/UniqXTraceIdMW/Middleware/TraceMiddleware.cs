@@ -31,6 +31,9 @@ using UniqXTraceIdMW.Middleware.Options;
 
 namespace UniqXTraceIdMW.Middleware
 {
+    /// <summary>
+    ///     HTTP trace middleware
+    /// </summary>
     public class TraceMiddleware
     {
         /// <summary>
