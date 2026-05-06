@@ -114,6 +114,8 @@ _TeamCity*
 _NCrunch_*
 .*crunch*.local.xml
 nCrunchTemp_*
+*.ncrunchsolution
+*.ncrunchsolution.*
 
 # MightyMoose
 *.mm.*
@@ -260,7 +262,6 @@ package.json
 
 # Bower Libraries
 wwwroot/lib/
-#src/application/Setrio.Gateway.Api/healthchecksdb
 
 # Sonarqube
 .sonarqube

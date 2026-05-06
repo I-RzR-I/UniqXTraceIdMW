@@ -7,14 +7,14 @@
 //  Last Modified On : 2022-08-03 18:53
 // ***********************************************************************
 //  <copyright file="TraceType.cs" company="">
-//   Copyright (c) RzR. All rights reserved.
+//   Copyright © RzR. All rights reserved.
 //  </copyright>
 // 
 //  <summary>
 //  </summary>
 // ***********************************************************************
 
-namespace UniqXTraceIdMW.Enums
+namespace RzR.Web.Middleware.TraceId.Enums
 {
     /// <summary>
     ///     HTTP trance type

@@ -23,8 +23,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using UniqXTraceIdMW;
-using UniqXTraceIdMW.Enums;
+using RzR.Web.Middleware.TraceId;
+using RzR.Web.Middleware.TraceId.Enums;
 
 #endregion
 
