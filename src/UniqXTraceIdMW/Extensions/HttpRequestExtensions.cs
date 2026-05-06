@@ -7,7 +7,7 @@
 //  Last Modified On : 2023-10-02 16:44
 // ***********************************************************************
 //  <copyright file="HttpRequestExtensions.cs" company="">
-//   Copyright (c) RzR. All rights reserved.
+//   Copyright © RzR. All rights reserved.
 //  </copyright>
 // 
 //  <summary>
@@ -23,55 +23,54 @@ using Microsoft.AspNetCore.Http;
 
 #endregion
 
-namespace UniqXTraceIdMW.Extensions
+namespace RzR.Web.Middleware.TraceId.Extensions
 {
+    /// -------------------------------------------------------------------------------------------------
     /// <summary>
-    ///     HTTP request extensions
+    ///     HTTP request extensions.
     /// </summary>
+    /// =================================================================================================
     internal static class HttpRequestExtensions
     {
+        /// -------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Get request body as string
+        ///     Read body from the HTTP context as a string, buffering the stream so the downstream
+        ///     pipeline can still read the full body after this call. Only the first <paramref name="maxBytes"/>
+        ///     bytes are returned in the log string; the full body is always preserved on <see cref="HttpContext.Request"/>
+        ///     .
         /// </summary>
-        /// <param name="request">Current request.</param>
-        /// <param name="encoding">Request encoding.</param>
-        /// <returns></returns>
-        internal static async Task<string> GetRawBodyAsync(this HttpRequest request, Encoding encoding = null)
+        /// <param name="context">HTTP context.</param>
+        /// <param name="maxBytes">
+        ///     (Optional)
+        ///     Maximum number of bytes to include in the returned string. Prevents large payloads from
+        ///     appearing verbatim in log output. Defaults to 4096 (4 KB).
+        /// </param>
+        /// <returns>
+        ///     The request body as a UTF-8 string, truncated to <paramref name="maxBytes"/>
+        ///     with a notice appended when the original body was larger.
+        /// </returns>
+        /// =================================================================================================
+        internal static async Task<string> ReadRequestBody(this HttpContext context, int maxBytes = 4096)
         {
-            try
-            {
-                var reader = new StreamReader(request.Body, encoding ?? Encoding.UTF8);
-                var body = await reader.ReadToEndAsync().ConfigureAwait(false);
+            // Buffer the entire body so downstream middleware/handlers can still read it.
+            var bodyBuffer = new MemoryStream();
+            await context.Request.Body.CopyToAsync(bodyBuffer);
+            bodyBuffer.Position = 0;
+            context.Request.Body = bodyBuffer;
 
-                return body;
-            }
-            catch
-            {
-                return string.Empty;
-            }
+            // Read at most maxBytes for the log string — does not affect what downstream receives.
+            var logBytes = new byte[maxBytes];
+            var bytesRead = await bodyBuffer.ReadAsync(logBytes, 0, maxBytes);
+            var wasTruncated = bodyBuffer.Length > maxBytes;
+
+            // Reset so downstream can read the full body from the beginning.
+            bodyBuffer.Position = 0;
+
+            var content = Encoding.UTF8.GetString(logBytes, 0, bytesRead);
+
+            return wasTruncated
+                ? content + $" ... [truncated, total size: {bodyBuffer.Length} bytes]"
+                : content;
         }
-
-
-        /// <summary>
-        ///     Read body from context as string
-        /// </summary>
-        /// <param name="context">Http Context</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        internal static async Task<string> ReadRequestBody(this HttpContext context)
-        {
-            var buffer = new MemoryStream();
-            await context.Request.Body.CopyToAsync(buffer);
-            context.Request.Body = buffer;
-            buffer.Position = 0;
-
-            var encoding = Encoding.UTF8;
-
-            var requestContent = await new StreamReader(buffer, encoding).ReadToEndAsync();
-            context.Request.Body.Position = 0;
-
-            return requestContent;
-        }
-
     }
 }
