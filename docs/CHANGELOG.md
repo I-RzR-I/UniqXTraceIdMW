@@ -2,7 +2,7 @@
 -> Fix wrong modification.<br />
 
 ### **v.1.0.1.1423** 
--> Add option to log current request.
+-> Add option to log current request. <br />
 -> Add input param (Action) to execute custom action after request execution.
 
 ### **v.1.0.0.625** 
